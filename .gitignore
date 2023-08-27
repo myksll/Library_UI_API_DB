@@ -1,0 +1,7 @@
+##for maven--these
+
+/.idea/
+/target/
+/*.iml
+
+##for java--/.out /
