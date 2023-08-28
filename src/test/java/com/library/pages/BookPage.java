@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
+
+
 public class BookPage extends BasePage {
 
     @FindBy(xpath = "//table/tbody/tr")
