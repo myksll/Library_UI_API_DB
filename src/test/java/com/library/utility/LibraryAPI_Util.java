@@ -2,6 +2,8 @@ package com.library.utility;
 
 import com.github.javafaker.Faker;
 import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -17,16 +19,11 @@ public class LibraryAPI_Util {
      * @return
      */
     public static String getToken(String userType){
-
-
         String email=ConfigurationReader.getProperty(userType+"_username");
         String password="libraryUser";
 
 
-
         return getToken(email,password);
-
-
     }
 
     public static String getToken(String email,String password){
@@ -40,8 +37,6 @@ public class LibraryAPI_Util {
                 .post(ConfigurationReader.getProperty("library.baseUri")+"/login")
                 .prettyPeek()
                 .path("token") ;
-
-
     }
 
     public static Map<String,Object> getRandomBookMap(){
@@ -57,6 +52,12 @@ public class LibraryAPI_Util {
         bookMap.put("description", faker.chuckNorris().fact() );
 
         return bookMap ;
+    }
+
+    public static RequestSpecification requestSpecificationauthorized(String userType){
+    return     given().accept(ContentType.JSON)
+                .contentType(ContentType.JSON)
+                .header("x-library-token",getToken(userType));
     }
 
     public static Map<String,Object> getRandomUserMap(){
@@ -78,8 +79,16 @@ public class LibraryAPI_Util {
 
         return bookMap ;
     }
+/*
+    public static RequestSpecification getRequestSpec(String token){
 
+        return given().log().all()
+              .accept("application/json")
+              .header("x-library-token",token);
 
+    }
+
+ */
 
 
 
